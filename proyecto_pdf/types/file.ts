@@ -9,7 +9,11 @@ export interface Webp {
     small_image_url: string;
 };
 
-export default interface Manga {
+export interface Images {
     jpg: Jpg;
     webp: Webp;
+};
+
+export default interface Manga {
+    images: Images;
 }

@@ -43,9 +43,10 @@
   
 <script setup lang="ts">
 import Manga from '@/types/file';
-const { data } = await useFetch<Manga[]>("/api/manga");
+const { data } = await useFetch<any>("https://api.jikan.moe/v4/manga/3/pictures");
 const manga = data.value.data;
 
+console.log(manga)
 
 
 

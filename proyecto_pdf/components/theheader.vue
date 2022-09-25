@@ -6,23 +6,31 @@
             </template>
 
             <template v-slot:prepend>
-                <v-app-bar-nav-icon @click="drawer_active($event)"></v-app-bar-nav-icon>
+                <v-app-bar-nav-icon @click="drawer_active()"></v-app-bar-nav-icon>
             </template>
 
-            <v-app-bar-title>Alexandria Archives</v-app-bar-title>
+            <a href="/" style="text-decoration: none; color: inherit;">
+                <v-app-bar-title>Alexandria Archives</v-app-bar-title>
+            </a>
 
             <v-spacer></v-spacer>
 
-            <v-btn style="border: 1px solid #000; margin-right: 10px;" to="/signin">
-                Sign In
-            </v-btn>
+            <a href="/signin" style="text-decoration: none; color: inherit;">
+                <v-btn style="border: 1px solid #000; margin-right: 10px;" >
+                    Sign In
+                </v-btn>
+            </a>
 
-            <v-text-field class="input" hide-details label="Search Snow" placeholder="Search"
+
+            <v-text-field class="input" hide-details label="Search Snow" placeholder="Search" v-model="searchText"
                 rounded dense single-line>
             </v-text-field>
 
-            <v-btn icon>
-                <v-icon>mdi-magnify</v-icon>
+            <v-btn icon type="submit">
+                <a href="/search">
+                    <v-icon>mdi-magnify</v-icon>
+                </a>
+
             </v-btn>
         </v-app-bar>
         <v-navigation-drawer ref="navDrawer" id="navDrawer" v-model="drawer" app location="left" temporary
@@ -34,10 +42,16 @@
 
 <script setup lang="ts">
 let drawer = ref<boolean>(false)
-//const navDrawer = ref<HTMLDivElement>(null);
+const searchText = ref<string>("")
 
-function drawer_active(event): void {
+
+function drawer_active(): void {
     drawer.value = !(drawer.value)
+}
+
+function searchItems(): void {
+    const router = useRouter()
+    router.push({ name: 'index', query: { search: searchText.value } })
 }
 </script>
 
