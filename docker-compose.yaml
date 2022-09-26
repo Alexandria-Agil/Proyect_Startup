@@ -1,0 +1,53 @@
+version: '3.7'
+
+services:
+
+# docker run -d --rm -p 5432:5432 -e POSTGRES_PASSWORD=asd -e POSTGRES_USER=postgres db
+
+  db:
+    build: ./db
+    restart: always
+    ports:
+      #- 5432:5432
+      - 5435:5432
+    env_file:
+      - "db/database.env"
+    networks: 
+      app_network:
+        aliases: 
+          - db_host
+      
+  
+  api:
+    build: ./API
+    ports:
+      - "5000:5000"
+    env_file:
+      - "API/api.env"
+    depends_on:
+      - db
+    restart: unless-stopped
+    networks: 
+      app_network:
+        aliases: 
+          - api_host
+    
+ # app:
+ #   build: ./cleverhome_frontend 
+ #   ports:
+ #     - 80:80
+ #   depends_on:
+ #     - api
+ #   networks: 
+ #     app_network:
+ #       aliases: 
+ #         - app_host
+
+
+networks: 
+  app_network:
+    name: app_net
+    driver: bridge
+    ipam:
+      driver: default
+
