@@ -7,6 +7,10 @@
           <input type="text" v-model="login.username" />
         </div>
         <div>
+          <label>Email</label>
+          <input type="email" v-model="login.email" />
+        </div>
+        <div>
           <label>Password</label>
           <input type="text" v-model="login.password" />
         </div>
@@ -21,16 +25,21 @@
 
 const login = {
         username: '',
+        email: '',
         password: ''
       }
 async function userLogin()
 {
-    try {
-        let response = await this.$auth.loginWith('local', { data: this.login })
-        console.log(response)
-      } catch (err) {
-        console.log(err)
-    }
+  const url = "http://localhost:5000/register"
+  const requestOptions = {
+  method: 'POST',
+  headers: {},
+  body: JSON.stringify(login),
+  }
+  const { data, error } = useFetch<any>(url, requestOptions);
+
+  console.log(data)
+  console.log(error)
 }
 
 
