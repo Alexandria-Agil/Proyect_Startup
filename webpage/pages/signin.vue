@@ -37,8 +37,7 @@ async function userLogin()
   body: JSON.stringify(login),
   }
   const { data, error } = useFetch<any>(url, requestOptions);
-
-  console.log(data)
+  
   console.log(error)
 }
 

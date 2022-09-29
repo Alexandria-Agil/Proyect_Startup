@@ -37,17 +37,17 @@ services:
         aliases: 
           - api_host
 
-  nuxt:
-    build:
-      context: ./webpage
-    image: nuxt_dev
-    container_name: nuxt_dev
-    command: npm run dev
-    volumes:
-    - .:/code
-    - /code/node_modules
-    ports:
-      - "3000:3000"
+#  nuxt:
+#    build:
+#      context: ./webpage
+#    image: nuxt_dev
+#    container_name: nuxt_dev
+#    command: npm run dev
+#    volumes:
+#    - .:/code
+#    - /code/node_modules
+#    ports:
+#      - "3000:3000"
     
  # app:
  #   build: ./cleverhome_frontend 
