@@ -1,14 +1,10 @@
 <template>
     <br/><br/><br/>
-      <div>
+      <div v-if="!Loged">
         <form @submit.prevent="userLogin">
           <div>
             <label>Username</label>
             <input type="text" v-model="login.username" />
-          </div>
-          <div>
-            <label>Email</label>
-            <input type="email" v-model="login.email" />
           </div>
           <div>
             <label>Password</label>
@@ -19,13 +15,20 @@
           </div>
         </form>
       </div>
+      <div v-else>
+        Tu ya estas logeado
+      </div>
     </template>
   
   <script setup lang="ts">
+  const Token = useCookie('Token')
+  const value = Token.value
+  const { data, refresh } = await useFetch<any>("/api/user",{headers: {"Authorization": value }} );
+  const Loged = data.value.status
+  refresh();
   
   const login = {
           username: '',
-          email: '',
           password: ''
         }
   async function userLogin()

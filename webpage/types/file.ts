@@ -16,4 +16,6 @@ export interface Images {
 
 export default interface Manga {
     images: Images;
+    title: string;
+    mal_id: number;
 }

@@ -20,18 +20,19 @@
                     Sign In
                 </v-btn>
             </a>
-
-
-            <v-text-field class="input" hide-details label="Search Snow" placeholder="Search" v-model="searchText"
-                rounded dense single-line>
-            </v-text-field>
-
-            <v-btn icon type="submit">
-                <a href="/search">
-                    <v-icon>mdi-magnify</v-icon>
-                </a>
-
-            </v-btn>
+            <v-form ref="form" v-on:submit.prevent="searchItems" style="width: 400px;">
+                    <v-container>
+                        <v-row>
+                            <v-text-field v-model="searchText" class="input" hide-details label="Search"
+                                placeholder="Search" rounded dense single-line>
+                            </v-text-field>
+                            <v-btn icon type="submit">
+                                <v-icon>mdi-magnify</v-icon>
+                            </v-btn>
+                        </v-row>
+                    </v-container>
+            </v-form>
+            
         </v-app-bar>
         <v-navigation-drawer ref="navDrawer" id="navDrawer" v-model="drawer" app location="left" temporary
             style="width: 700px;">
@@ -51,7 +52,7 @@ function drawer_active(): void {
 
 function searchItems(): void {
     const router = useRouter()
-    router.push({ name: 'index', query: { search: searchText.value } })
+    router.push({ name: 'search', query: { search: searchText.value } })
 }
 </script>
 

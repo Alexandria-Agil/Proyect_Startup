@@ -12,6 +12,6 @@
     const value = Token.value
     const { data, refresh } = await useFetch<any>("/api/user",{headers: {"Authorization": value }} );
     const status = data.value.status
-    const username = data.value.users[1][0]
+    const username = data.value.users[2][0]
     refresh();
 </script>

@@ -1,20 +1,6 @@
 <template>
     <br /><br /><br />
     <v-table>
-        <thead>
-            <tr>
-                <th class="text-left">
-                    Title
-                </th>
-                <th class="text-left">
-
-                </th>
-                <th class="text-left">
-                    Price
-                </th>
-            </tr>
-        </thead>
-
         <tr v-for="item in products" :key="item.mal_id">
             <a :href="`pdf/${item.mal_id}`" style="text-decoration: none; color: inherit;">
                 <td>
@@ -26,7 +12,6 @@
                 <td class="table-width">{{ item.title }}</td>
             </a>
         </tr>
-
     </v-table>
 </template>
 
@@ -35,14 +20,15 @@ import Manga from '@/types/file';
 
 const { data } = await useFetch<any>("https://api.jikan.moe/v4/manga");
 
-console.log(data.value.data)
+
 const route = useRoute()
 
-const products = computed<Manga[]>(() => {
+const products = computed<any[]>(() => {
+    const TotalData = data.value.data
     const searchQuery = route.query.search as string;
-    if (!searchQuery) return data.value.data;
+    if (!searchQuery) return TotalData;
     const upperQuery = searchQuery.toUpperCase();
-    return data.value.filter((product) => {
+    return TotalData.filter((product) => {
         return product.title.toUpperCase().includes(upperQuery);
     })
 })
