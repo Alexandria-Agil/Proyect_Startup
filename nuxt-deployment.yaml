@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: nuxt
+  name: nuxt
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: nuxt
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.22.0 (955b78124)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: nuxt
+    spec:
+      containers:
+        - args:
+            - npm
+            - run
+            - dev
+          image: rafaruizc/nuxt_dev:latest
+          name: nuxt-dev
+          ports:
+            - containerPort: 3000
+          resources: {}
+          volumeMounts:
+            - mountPath: /code
+              name: nuxt-claim0
+            - mountPath: /code/node_modules
+              name: nuxt-claim1
+      restartPolicy: Always
+      volumes:
+        - name: nuxt-claim0
+          persistentVolumeClaim:
+            claimName: nuxt-claim0
+        - name: nuxt-claim1
+          persistentVolumeClaim:
+            claimName: nuxt-claim1
+status: {}

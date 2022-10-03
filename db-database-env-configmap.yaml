@@ -1,0 +1,12 @@
+apiVersion: v1
+data:
+  POSTGRES_DB: postgres
+  POSTGRES_PASSWORD: gmS3sazxSszauWu
+  POSTGRES_PORT: "5432"
+  POSTGRES_USER: postgres
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: db-db-database-env
+  name: db-database-env

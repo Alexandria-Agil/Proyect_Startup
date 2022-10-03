@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+   name: nuxt-pod
+spec:
+   containers:
+   - name: nuxt-container
+     image: rafaruizc/nuxt_dev:latest
+     ports:
+     - containerPort: 3000
