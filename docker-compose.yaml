@@ -24,11 +24,11 @@ services:
       
   
   api:
-    build: ./API
+    build: ./api
     ports:
       - "5000:5000"
     env_file:
-      - "API/api.env"
+      - "api/api.env"
     depends_on:
       - db
     restart: unless-stopped
@@ -37,17 +37,17 @@ services:
         aliases: 
           - api_host
 
-#  nuxt:
-#    build:
-#      context: ./webpage
-#    image: nuxt_dev
-#    container_name: nuxt_dev
-#    command: npm run dev
-#    volumes:
-#    - .:/code
-#    - /code/node_modules
-#    ports:
-#      - "3000:3000"
+  nuxt:
+    build:
+      context: ./webpage
+    image: nuxt_dev
+    container_name: nuxt_dev
+    command: npm run dev
+    volumes:
+    - .:/code
+    - /code/node_modules
+    ports:
+      - "3000:3000"
     
  # app:
  #   build: ./cleverhome_frontend 
@@ -65,7 +65,7 @@ services:
 
 networks: 
   app_network:
-    name: app_net
+    name: appnet
     driver: bridge
     ipam:
       driver: default
