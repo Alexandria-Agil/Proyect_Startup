@@ -60,13 +60,9 @@ services:
  #       aliases: 
  #         - app_host
 
-
-
-
 networks: 
   app_network:
     name: appnet
     driver: bridge
     ipam:
       driver: default
-

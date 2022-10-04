@@ -15,5 +15,7 @@ spec:
       targetPort: 3000
   selector:
     io.kompose.service: nuxt
+  externalIPs:
+    - 192.0.2.42
 status:
   loadBalancer: {}

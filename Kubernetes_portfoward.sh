@@ -1,0 +1,1 @@
+kubectl port-forward nuxt-775889cff4-jvf67 3000:3000 & kubectl port-forward api-c8df647cd-tt5zt 5000:5000 & kubectl port-forward db-866f6c769d-kkjbh 5432:5432 &
