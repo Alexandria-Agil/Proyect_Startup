@@ -42,12 +42,40 @@ services:
       context: ./webpage
     image: nuxt_dev
     container_name: nuxt_dev
-    command: npm run dev
+    command: npm run dev -- -p 3001
     volumes:
     - .:/code
     - /code/node_modules
     ports:
-      - "3000:3000"
+      - "3001:3001"
+    networks: 
+      app_network:
+        aliases: 
+          - nuxt_host
+
+  nuxt2:
+    build:
+      context: ./webpage2
+    image: nuxt_dev2
+    container_name: nuxt_dev2
+    command: npm run dev -- -p 3002
+    volumes:
+    - .:/code
+    - /code/node_modules
+    ports:
+      - "3002:3002"
+    networks: 
+      app_network:
+        aliases: 
+          - nuxt2_host
+
+  nginx:
+      build: ./nginx
+      ports:
+        - 8080:80
+      depends_on:
+        - nuxt
+        - nuxt2
     
  # app:
  #   build: ./cleverhome_frontend 
@@ -59,6 +87,7 @@ services:
  #     app_network:
  #       aliases: 
  #         - app_host
+    
 
 networks: 
   app_network:

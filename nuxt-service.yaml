@@ -10,12 +10,10 @@ metadata:
   name: nuxt
 spec:
   ports:
-    - name: "3000"
-      port: 3000
-      targetPort: 3000
+    - name: "3001"
+      port: 3001
+      targetPort: 3001
   selector:
     io.kompose.service: nuxt
-  externalIPs:
-    - 192.0.2.42
 status:
   loadBalancer: {}

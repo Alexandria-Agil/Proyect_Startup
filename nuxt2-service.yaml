@@ -6,14 +6,14 @@ metadata:
     kompose.version: 1.22.0 (955b78124)
   creationTimestamp: null
   labels:
-    io.kompose.service: api
-  name: api
+    io.kompose.service: nuxt2
+  name: nuxt2
 spec:
   ports:
-    - name: "5000"
-      port: 5000
-      targetPort: 5000
+    - name: "3002"
+      port: 3002
+      targetPort: 3002
   selector:
-    io.kompose.service: api
+    io.kompose.service: nuxt2
 status:
   loadBalancer: {}
