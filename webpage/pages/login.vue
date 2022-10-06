@@ -21,10 +21,20 @@
     </template>
   
   <script setup lang="ts">
+  let Loged = false
   const Token = useCookie('Token')
   const value = Token.value
-  const { data, refresh } = await useFetch<any>("/api/user",{headers: {"Authorization": value }} );
-  const Loged = data.value.status
+  const { data, refresh } = await useFetch<JSON>("/api/user",{headers:{"Authorization": value}});
+  console.log("value is: ")
+  console.log(value)
+    try{
+      Loged = data.value.status
+    }
+    catch(e){
+      console.log(e)
+      console.log(data)
+    }
+   
   refresh();
   
   const login = {
@@ -33,7 +43,7 @@
         }
   async function userLogin()
   {
-    const url = "http://localhost:5000/login"
+    const url = "http://127.0.0.1:5000/login"
     const requestOptions = {
     method: 'POST',
     headers: {},
