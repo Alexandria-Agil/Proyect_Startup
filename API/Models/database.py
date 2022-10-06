@@ -5,8 +5,9 @@ import os
 class Database:
 
     def __init__(self):
-        self.conn = self.Connect()
-        self.conn.autocommit = True
+        #self.conn = self.Connect()
+        #self.conn.autocommit = True
+        pass
 
     def LogIn(self, username, password):
         cur = self.conn.cursor()
