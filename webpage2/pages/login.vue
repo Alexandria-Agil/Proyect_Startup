@@ -24,7 +24,13 @@
   const Token = useCookie('Token')
   const value = Token.value
   const { data, refresh } = await useFetch<any>("/api/user",{headers: {"Authorization": value }} );
-  const Loged = data.value.status
+  try{
+      Loged = data.value.status
+    }
+    catch(e){
+      console.log(e)
+      console.log(data)
+    }
   refresh();
   
   const login = {
