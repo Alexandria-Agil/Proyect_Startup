@@ -5,9 +5,8 @@ import os
 class Database:
 
     def __init__(self):
-        #self.conn = self.Connect()
-        #self.conn.autocommit = True
-        pass
+        self.conn = self.Connect()
+        self.conn.autocommit = True
 
     def LogIn(self, username, password):
         cur = self.conn.cursor()
@@ -27,11 +26,10 @@ class Database:
     def Connect(self):
         DATABASE = os.environ["DATABASE"]
         USER = os.environ["USER_DB"]
-        HOST = os.environ["HOST_DB"]
-        PORT = os.environ["PORT_DB"]
         PASSWORD = os.environ["PASSWORD_DB"]
-        print(DATABASE, USER, HOST, PORT, PASSWORD)
-        return psycopg2.connect(database=DATABASE, user=USER, host=HOST, port=PORT, password=PASSWORD)
+        PORT = os.environ["PORT_DB"]
+        HOST = os.environ["HOST_DB"]
+        return psycopg2.connect(database=DATABASE, user=USER, host=HOST, port=PORT, password=PASSWORD) 
 
     def UserExists(self, username):
         try:

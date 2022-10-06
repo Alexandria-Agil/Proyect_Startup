@@ -4,7 +4,7 @@ data:
   API_PORT: "5000"
   DATABASE: postgres
   DEBUG: "False"
-  HOST_DB: db_host
+  HOST_DB: db
   PASSWORD_DB: gmS3sazxSszauWu
   PORT_DB: "5432"
   SECRET_KEY: HJKmnsdbmsu789yb2asd
