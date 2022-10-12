@@ -215,3 +215,9 @@ AND pdf.category_id = category.category_id AND account.account_id = pdf.account_
 ----14) MOSTRAR PERFIL
 SELECT account.username, account.email, account.profile_link FROM account
 WHERE account_id = 2
+
+----15) MOSTRAR PDFS DE USUARIOS LOS CUALES ESTOY SUSCRITO
+SELECT pdf.title, pdf.summary, pdf.cont_18, account.username, category.title 
+FROM pdf, account, category, sub WHERE pdf.account_id = account.account_id AND 
+category.category_id = pdf.category_id AND pdf.privacy = false AND account.account_id = sub.account_id
+AND sub.follower_account_id = 3
