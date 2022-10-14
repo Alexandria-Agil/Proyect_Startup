@@ -24,9 +24,15 @@
   let Loged = false
   const Token = useCookie('Token')
   const value = Token.value
-  const { data, refresh } = await useFetch<JSON>("/api/user",{headers:{"Authorization": value}});
-  console.log("value is: ")
-  console.log(value)
+  const url = "http://127.0.0.1:5000/users"
+    const requestOptions = {
+    method: 'GET',
+    headers: {"Authorization":value.toString()}
+  }
+  const { data, error, refresh, pending } = await useFetch<JSON>(url, requestOptions);
+  console.log(data)
+  refresh();
+  console.log(JSON.parse(JSON.stringify(data)))
     try{
       Loged = data.value.status
     }
@@ -35,7 +41,7 @@
       console.log(data)
     }
    
-  refresh();
+  
   
   const login = {
           username: '',
