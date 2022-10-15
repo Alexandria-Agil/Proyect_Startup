@@ -4,11 +4,11 @@
         <form @submit.prevent="userLogin">
           <div>
             <label>Username</label>
-            <input type="text" v-model="login.username" />
+            <input type="text" v-model="login.username" class="separate_input"/>
           </div>
           <div>
             <label>Password</label>
-            <input type="text" v-model="login.password" />
+            <input type="text" v-model="login.password" class="separate_input"/>
           </div>
           <div>
             <button type="submit">Submit</button>
@@ -27,7 +27,7 @@
   const url = "http://127.0.0.1:5000/users"
     const requestOptions = {
     method: 'GET',
-    headers: {"Authorization":value.toString()}
+    headers: {"Authorization":value}
   }
   const { data, error, refresh, pending } = await useFetch<JSON>(url, requestOptions);
   console.log(data)
@@ -63,3 +63,10 @@
   
   
   </script>
+
+
+<style>
+.separate_input{
+  margin-left: 10px;
+}
+</style>

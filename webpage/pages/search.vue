@@ -2,16 +2,24 @@
     <br /><br /><br />
     <v-table>
         <tr v-for="item in products" :key="item.mal_id">
-            <a :href="`pdf/${item.mal_id}`" style="text-decoration: none; color: inherit;">
+
                 <td>
                     <v-card color="transparent" height="200" width="300">
+                        <a :href="`pdf/${item.mal_id}`" style="text-decoration: none; color: inherit;">
                         <v-img class="d-flex fill-height align-center justify-center" :src="item.images.jpg.image_url">
                         </v-img>
+                    </a>
                     </v-card>
                 </td>
-                <td class="table-width">{{ item.title }}</td>
-            </a>
+                <td style="margin-bottom: 100px;">
+                    <a :href="`pdf/${item.mal_id}`" style="text-decoration: none; color: inherit;">
+                        {{ item.title }}
+                    </a>
+                </td>
+
+    
         </tr>
+        
     </v-table>
 </template>
 
