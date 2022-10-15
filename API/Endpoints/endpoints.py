@@ -83,12 +83,19 @@ def upload_file(username):
                 thumbpath = webProtocols.create_thumbnail(thumb)
 
             filename = webProtocols.save_file(file)
-            
+            print("file: ",file)
+            print()
+            print("filename: ",filename)
+            print()
+            print("thumb: ",thumb)
+            print()
+            print("thumbpath: ",thumbpath)
+            print()
             #video = Videos(title=title, description=description, video=filename, thumbnail = thumbpath, user_id = current_user.id)
             #db.session.add(video)
             #db.session.commit()
 
-            return {"status":200}
+            return jsonify({"status":200,"file: ":file,"filename: ":filename,"thumb: ":thumb,"thumbpath: ":thumbpath})
         else:
             return {"status":405}
     else:
