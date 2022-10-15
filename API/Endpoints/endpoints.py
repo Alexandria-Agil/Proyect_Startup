@@ -51,7 +51,7 @@ def get_houses(username):
 
 @endpoints.route('/upload', methods=['POST'])
 @token_required
-def upload_file():
+def upload_file(username):
     """
     {
         file: FILE,
