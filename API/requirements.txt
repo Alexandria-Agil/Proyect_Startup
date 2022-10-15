@@ -4,3 +4,4 @@ passlib
 psycopg2
 pyjwt
 requests
+Pillow
