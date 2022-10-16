@@ -3,12 +3,18 @@ from airflow.operators.python import PythonOperator
 from airflow.utils.dates import days_ago
 from datetime import datetime, timedelta
 
-def greet(ti, **context):
-    titulo = context['dag_run'].conf['Titulo']
-    print("change")
-    raise ValueError("The parameters are not well done")
+TITLE_MAX_CHAR = 100
+DESC_MAX_CHAR = 500
 
-
+def pdf_filter(ti, **context):
+    title = context['dag_run'].conf['title']
+    desc = context['dag_run'].conf['description']
+    if len(title) > TITLE_MAX_CHAR:
+        raise ValueError(f"The title is too large, has {len(title)} chars (MAX: {TITLE_MAX_CHAR})")
+    elif len(desc) > DESC_MAX_CHAR:
+        raise ValueError(f"The description is too large, has {len(desc)} chars (MAX: {DESC_MAX_CHAR})")
+    return 0
+    
 args = {
     'owner': 'brock',
     'depends_on_past': False,
@@ -25,9 +31,9 @@ args = {
 with DAG(
     dag_id='verify_pdf_v1',
     default_args=args,
-    tags=["Rafita"]
+    tags=["Filter"]
 ) as dag:
     task1 = PythonOperator(
-        task_id="greet",
-        python_callable = greet
+        task_id="pdf_filter",
+        python_callable = pdf_filter
     )
