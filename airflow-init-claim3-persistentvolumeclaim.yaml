@@ -3,8 +3,8 @@ kind: PersistentVolumeClaim
 metadata:
   creationTimestamp: null
   labels:
-    io.kompose.service: nuxt-claim0
-  name: nuxt-claim0
+    io.kompose.service: airflow-init-claim3
+  name: airflow-init-claim3
 spec:
   accessModes:
     - ReadWriteOnce

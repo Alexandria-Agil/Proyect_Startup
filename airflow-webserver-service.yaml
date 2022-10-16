@@ -6,14 +6,14 @@ metadata:
     kompose.version: 1.22.0 (955b78124)
   creationTimestamp: null
   labels:
-    io.kompose.service: nuxt2
-  name: nuxt2
+    io.kompose.service: airflow-webserver
+  name: airflow-webserver
 spec:
   ports:
-    - name: "3002"
-      port: 3002
-      targetPort: 3002
+    - name: "8080"
+      port: 8080
+      targetPort: 8080
   selector:
-    io.kompose.service: nuxt2
+    io.kompose.service: airflow-webserver
 status:
   loadBalancer: {}
