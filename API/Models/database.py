@@ -64,6 +64,39 @@ class Database:
         cur.close()
         return data
 
+    '''
+     id serial PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    filename VARCHAR(255) NOT NULL,
+	thumbnail VARCHAR(255) NOT NULL,
+    description VARCHAR(512) NOT NULL,
+    cont_18 BOOLEAN NOT NULL,
+    privacy BOOLEAN NOT NULL,
+    account_id int NOT NULL,
+	category_id int,
+    '''
+
+    def InsertFile(self, title, description, file, thumbnail, username="test"):
+        try:
+            cur = self.conn.cursor()
+            SQLQuery = f"""
+                        INSERT INTO alexandria.files(title, filename, thumbnail, description,
+                        cont_18, privacy, account_id, category_id) 
+                        VALUES ('{title}', '{file}', '{thumbnail}', '{description}', FALSE, FALSE,
+                        SELECT u.id from alexandria.users u
+                            WHERE u.user_username = '{username}', NULL)
+                        """
+            SQLQuery = f"""
+                        INSERT INTO alexandria.files(title, filename, thumbnail, description,
+                        cont_18, privacy, category_id) 
+                        VALUES ('{title}', '{file}', '{thumbnail}', '{description}', FALSE, FALSE, NULL)
+                        """
+            cur.execute(SQLQuery)
+            cur.close()
+        except:
+            return False
+        return True
+
     def verify_password(self, password, password_hash):
         return pwd_context.verify(password, password_hash)
 

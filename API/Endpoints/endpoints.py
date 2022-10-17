@@ -41,7 +41,7 @@ def token_required(f):
 
 @endpoints.route('/users', methods=['GET'])
 @token_required
-def get_houses(username):
+def get_users(username):
 
     DB = current_app.config["DATABASE"]
     data = DB.GetUsers()
@@ -52,7 +52,7 @@ def get_houses(username):
 
 #@token_required
 @endpoints.route('/upload', methods=['POST'])
-def upload_file():
+def upload_file(): #username
     """
     {
         file: FILE,
@@ -62,17 +62,16 @@ def upload_file():
     }
     """
     if request.method == 'POST':
+        DB = current_app.config["DATABASE"]
         # check if the post request has the file part
-        print(request.files)
-        print(request.form)
         if 'file' not in request.files:
-            return abort(408)
+            return abort(400)
 
         file = request.files['file'] 
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
         if file.filename == '':
-            return abort(407)
+            return abort(400)
 
         if file and webProtocols.allowed_file(file.filename):
             title = request.form["title"]
@@ -86,20 +85,17 @@ def upload_file():
                 thumbpath = webProtocols.create_thumbnail(thumb)
 
             filename = webProtocols.save_file(file)
-            print("file: ",file)
-            print()
-            print("filename: ",filename)
-            print()
-            print("thumb: ",thumb)
-            print()
-            print("thumbpath: ",thumbpath)
-            print()
-            #video = Videos(title=title, description=description, video=filename, thumbnail = thumbpath, user_id = current_user.id)
-            #db.session.add(video)
-            #db.session.commit()
+ 
+            #status = DB.InsertFile(title, description, file, thumbpath, username)
+            status = DB.InsertFile(title, description, filename, thumbpath)
 
-            return jsonify({"status":200})
+            return jsonify({"status":status}), 200
         else:
             return abort(405)
     else:
         return abort(405)
+
+@endpoints.route('/files', methods=['GET'])
+def get_files():
+
+    return jsonify({'status': True}), 200
