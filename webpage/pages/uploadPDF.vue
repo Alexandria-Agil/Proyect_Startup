@@ -2,7 +2,7 @@
     <br/><br/><br/>
 
 
-    <form @submit.prevent="uploadPDF">
+    <!--  <form @submit.prevent="uploadPDF" enctype = "multipart/form-data">
           <div>
             <label>PDF Name</label>
             <input type="text" v-model="upload.title" class="separate_input"/>
@@ -27,8 +27,17 @@
             <button type="submit">Submit</button>
           </div>
 
-    </form>
+    </form>-->
 
+
+    <form action = "http://localhost:5000/upload" method = "POST" 
+         enctype = "multipart/form-data">
+         <input type = "file" name = "file" />
+          <input type = "file" name = "thumbnail" />
+          <input type = "text" name = "title" />    
+          <input type = "text" name = "description" />
+         <input type = "submit"/>
+      </form>   
 
 </template>
 
@@ -37,7 +46,7 @@ import { Body } from 'nuxt/dist/head/runtime/components';
 
 const Token = useCookie('Token')
 
-  const upload = {
+  let upload = {
         title: '',
         file: new FormData(),
         thumbnail: new FormData(),
@@ -47,8 +56,6 @@ const Token = useCookie('Token')
 
 async function uploadPDF()
   {
-    console.log(upload.file)
-    console.log(upload.thumbnail)
     const url = "http://127.0.0.1:5000/upload"
     const requestOptions = {
     method: 'POST',
@@ -56,7 +63,8 @@ async function uploadPDF()
     body: JSON.stringify(upload)
     }
     console.log(requestOptions.body)
-    const { data } = await useFetch<JSON>(url, requestOptions);
+    console.log(upload)
+    const { data } = await useFetch<any>(url, requestOptions);
     console.log(data)
   }
 
@@ -64,15 +72,19 @@ async function uploadPDF()
 
   function Setfile1(e)
   {
+    console.log("e")
+    console.log(e)
+    console.log("e.target")
+    console.log(e.target)
     console.log(e.target.files[0])
-    upload.thumbnail= e.target.files[0]
+    upload.thumbnail.append("img",e.target.files[0])
 
   }
 
   function Setfile2(e)
   {
     console.log(e.target.files[0])
-    upload.file= e.target.files[0]
+    upload.file.append("pdf",e.target.files[0])
 
   }
 

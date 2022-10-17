@@ -7,5 +7,5 @@ COPY . /API
 
 RUN pip install -r requirements.txt
 
-CMD ["stdbuf","-oL",  "python", "-u","main.py"]
+CMD [ "python", "-u","main.py"]
 EXPOSE 5000

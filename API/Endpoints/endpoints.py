@@ -49,9 +49,10 @@ def get_houses(username):
 
     return jsonify({'status': True, 'users': data}), 200
 
+
+#@token_required
 @endpoints.route('/upload', methods=['POST'])
-@token_required
-def upload_file(username):
+def upload_file():
     """
     {
         file: FILE,
@@ -62,14 +63,16 @@ def upload_file(username):
     """
     if request.method == 'POST':
         # check if the post request has the file part
+        print(request.files)
+        print(request.form)
         if 'file' not in request.files:
-            return {"status":404}
+            return abort(408)
 
         file = request.files['file'] 
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
         if file.filename == '':
-            return {"status":404}
+            return abort(407)
 
         if file and webProtocols.allowed_file(file.filename):
             title = request.form["title"]
@@ -79,7 +82,7 @@ def upload_file(username):
             thumbpath = "None.jpg"
             if not thumb.filename == '':
                 if not webProtocols.allowed_image(thumb.filename):
-                    return {"status":405}
+                    return abort(405)
                 thumbpath = webProtocols.create_thumbnail(thumb)
 
             filename = webProtocols.save_file(file)
@@ -95,8 +98,8 @@ def upload_file(username):
             #db.session.add(video)
             #db.session.commit()
 
-            return jsonify({"status":200,"file: ":file,"filename: ":filename,"thumb: ":thumb,"thumbpath: ":thumbpath})
+            return jsonify({"status":200})
         else:
-            return {"status":405}
+            return abort(405)
     else:
         return abort(405)
