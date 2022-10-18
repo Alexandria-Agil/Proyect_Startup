@@ -43,7 +43,7 @@ spec:
               command:
                 - curl
                 - --fail
-                - http://localhost:9000/health
+                - http://localhost:8888/health
             failureThreshold: 5
             periodSeconds: 10
             timeoutSeconds: 10
