@@ -1,6 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (955b78124)
   creationTimestamp: null
   labels:
     io.kompose.service: api
@@ -10,9 +13,13 @@ spec:
   selector:
     matchLabels:
       io.kompose.service: api
-  strategy: {}
+  strategy:
+    type: Recreate
   template:
     metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.22.0 (955b78124)
       creationTimestamp: null
       labels:
         io.kompose.network/appnet: "true"
@@ -60,6 +67,11 @@ spec:
                 configMapKeyRef:
                   key: SECRET_KEY
                   name: api-api-env
+            - name: UPLOAD_FOLDER
+              valueFrom:
+                configMapKeyRef:
+                  key: UPLOAD_FOLDER
+                  name: api-api-env
             - name: USER_DB
               valueFrom:
                 configMapKeyRef:
@@ -70,5 +82,12 @@ spec:
           ports:
             - containerPort: 5000
           resources: {}
+          volumeMounts:
+            - mountPath: /var/lib/data
+              name: api-volume
       restartPolicy: Always
+      volumes:
+        - name: api-volume
+          persistentVolumeClaim:
+            claimName: api-volume
 status: {}

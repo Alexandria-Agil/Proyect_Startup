@@ -1,0 +1,9 @@
+En todos los development cambiar imagen
+
+- rafaruizc/nuxt_dev
+- rafaruizc/nuxt_dev2
+- rafaruizc/proyect-startup-api 
+- rafaruizc/proyect-startup-db
+- rafaruizc/proyect-startup-api
+
+En api-api-env-configmap.yaml cambiar nombre de la base datos a db

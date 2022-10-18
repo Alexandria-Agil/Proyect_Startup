@@ -6,8 +6,9 @@ data:
   DEBUG: "False"
   HOST_DB: db
   PASSWORD_DB: gmS3sazxSszauWu
-  PORT_DB: "5432"
+  PORT_DB: "5433"
   SECRET_KEY: HJKmnsdbmsu789yb2asd
+  UPLOAD_FOLDER: files
   USER_DB: postgres
 kind: ConfigMap
 metadata:
