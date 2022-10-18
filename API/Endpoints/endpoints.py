@@ -50,9 +50,9 @@ def get_users(username):
     return jsonify({'status': True, 'users': data}), 200
 
 
-#@token_required
 @endpoints.route('/upload', methods=['POST'])
-def upload_file(): #username
+@token_required
+def upload_file(username): #username
     """
     {
         file: FILE,
@@ -61,6 +61,8 @@ def upload_file(): #username
         thumbnail: IMAGE
     }
     """
+    print(request.form)
+    print(request.files)
     if request.method == 'POST':
         DB = current_app.config["DATABASE"]
         # check if the post request has the file part

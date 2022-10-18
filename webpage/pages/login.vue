@@ -34,7 +34,12 @@
   refresh();
   console.log(JSON.parse(JSON.stringify(data)))
     try{
-      Loged = data.value.status
+      console.log(data)
+      let Loged2 = data.value.status
+      console.log(Loged2)
+      if (Loged2){
+        Loged = true
+      }
     }
     catch(e){
       console.log(e)
@@ -57,6 +62,8 @@
     }
     const { data } = await useFetch<JSON>(url, requestOptions);
     const Token = useCookie('Token')
+    console.log(data)
+    console.log(data.value)
     Token.value = data.value.token.toString()
     console.log(Token.value)
   }
