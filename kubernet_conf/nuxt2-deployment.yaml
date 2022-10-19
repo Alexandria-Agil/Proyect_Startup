@@ -33,7 +33,7 @@ spec:
             - --
             - -p
             - "3002"
-          image: proyect_startup_api/nuxt_dev2
+          image: rafaruizc/nuxt_dev2
           name: nuxt-dev2
           ports:
             - containerPort: 3002

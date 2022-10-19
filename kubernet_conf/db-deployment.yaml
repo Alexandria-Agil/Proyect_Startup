@@ -46,7 +46,7 @@ spec:
                 configMapKeyRef:
                   key: POSTGRES_USER
                   name: db-database-env
-          image: proyect_startup_api/proyect_startup_db
+          image: rafaruizc/proyect_startup_db
           name: db
           ports:
             - containerPort: 5432

@@ -32,7 +32,7 @@ spec:
               value: airflow
             - name: POSTGRES_USER
               value: airflow
-          image: postgres:13
+          image: rafaruizc/postgres
           livenessProbe:
             exec:
               command:

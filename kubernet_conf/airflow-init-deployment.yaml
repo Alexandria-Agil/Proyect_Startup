@@ -49,7 +49,7 @@ spec:
             - name: _AIRFLOW_WWW_USER_USERNAME
               value: airflow
             - name: _PIP_ADDITIONAL_REQUIREMENTS
-          image: apache/airflow:2.4.1
+          image: rafaruizc/apache_airflow
           name: airflow-init
           resources: {}
           volumeMounts:

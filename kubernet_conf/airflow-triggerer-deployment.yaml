@@ -37,7 +37,7 @@ spec:
               value: "false"
             - name: AIRFLOW__DATABASE__SQL_ALCHEMY_CONN
               value: postgresql+psycopg2://airflow:airflow@postgres/airflow
-          image: apache/airflow:2.4.1
+          image: rafaruizc/apache_airflow
           livenessProbe:
             exec:
               command:
