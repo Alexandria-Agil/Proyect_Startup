@@ -12,3 +12,8 @@ docker push $1/proyect_startup-api
 
 docker tag proyect_startup-nginx $1/proyect_startup-nginx
 docker push $1/proyect_startup-nginx
+
+
+##REPOSITORY rafaruizc
+docker tag proyect_startup_db rafaruizc/proyect_startup_db && docker tag proyect_startup_api rafaruizc/proyect_startup_api && docker tag nuxt_dev rafaruizc/nuxt_dev && docker tag nuxt_dev2 rafaruizc/nuxt_dev2 && docker tag proyect_startup_nginx rafaruizc/proyect_startup_nginx
+docker push rafaruizc/proyect_startup_db && docker push rafaruizc/proyect_startup_api && docker push rafaruizc/nuxt_dev && docker push rafaruizc/nuxt_dev2 && docker push rafaruizc/proyect_startup_nginx

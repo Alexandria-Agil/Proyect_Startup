@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: kompose convert
+    kompose.cmd: kompose convert -f ../docker-compose.yaml
     kompose.version: 1.22.0 (955b78124)
   creationTimestamp: null
   labels:
@@ -18,7 +18,7 @@ spec:
   template:
     metadata:
       annotations:
-        kompose.cmd: kompose convert
+        kompose.cmd: kompose convert -f ../docker-compose.yaml
         kompose.version: 1.22.0 (955b78124)
       creationTimestamp: null
       labels:
@@ -37,7 +37,7 @@ spec:
               value: "false"
             - name: AIRFLOW__DATABASE__SQL_ALCHEMY_CONN
               value: postgresql+psycopg2://airflow:airflow@postgres/airflow
-          image: rafaruizc/apache_airflow
+          image: apache/airflow:2.4.1
           livenessProbe:
             exec:
               command:
