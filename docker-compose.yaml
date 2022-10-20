@@ -95,6 +95,7 @@ services:
       POSTGRES_USER: airflow
       POSTGRES_PASSWORD: airflow
       POSTGRES_DB: airflow
+      AIRFLOW__API__AUTH_BACKEND: "airflow.api.auth.backend.basic_auth"
     volumes:
       - postgres-db-volume:/var/lib/postgresql/data
     restart: always
@@ -111,6 +112,10 @@ services:
       AIRFLOW__CORE__FERNET_KEY: ''
       AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
       AIRFLOW__CORE__LOAD_EXAMPLES: 'false' 
+      AIRFLOW__API__AUTH_BACKEND: "airflow.api.auth.backend.basic_auth"
+      AIRFLOW__API__ACCESS_CONTROL_ALLOW_HEADERS: 'origin, content-type, accept'
+      AIRFLOW__API__ACCESS_CONTROL_ALLOW_METHODS: 'POST, GET'
+      AIRFLOW__API__ACCESS_CONTROL_ALLOW_ORIGINS: '*'
     volumes:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs
@@ -137,6 +142,10 @@ services:
       AIRFLOW__CORE__FERNET_KEY: ''
       AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
       AIRFLOW__CORE__LOAD_EXAMPLES: 'false' 
+      AIRFLOW__API__AUTH_BACKEND: "airflow.api.auth.backend.basic_auth"
+      AIRFLOW__API__ACCESS_CONTROL_ALLOW_HEADERS: 'origin, content-type, accept'
+      AIRFLOW__API__ACCESS_CONTROL_ALLOW_METHODS: 'POST, GET'
+      AIRFLOW__API__ACCESS_CONTROL_ALLOW_ORIGINS: '*'
     volumes:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs
@@ -161,6 +170,10 @@ services:
       AIRFLOW__CORE__FERNET_KEY: ''
       AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
       AIRFLOW__CORE__LOAD_EXAMPLES: 'false' 
+      AIRFLOW__API__AUTH_BACKEND: "airflow.api.auth.backend.basic_auth"
+      AIRFLOW__API__ACCESS_CONTROL_ALLOW_HEADERS: 'origin, content-type, accept'
+      AIRFLOW__API__ACCESS_CONTROL_ALLOW_METHODS: 'POST, GET'
+      AIRFLOW__API__ACCESS_CONTROL_ALLOW_ORIGINS: '*'
     volumes:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs
@@ -256,6 +269,10 @@ services:
       _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME:-airflow}
       _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-airflow}
       _PIP_ADDITIONAL_REQUIREMENTS: ''
+      AIRFLOW__API__AUTH_BACKEND: "airflow.api.auth.backend.basic_auth"
+      AIRFLOW__API__ACCESS_CONTROL_ALLOW_HEADERS: 'origin, content-type, accept'
+      AIRFLOW__API__ACCESS_CONTROL_ALLOW_METHODS: 'POST, GET'
+      AIRFLOW__API__ACCESS_CONTROL_ALLOW_ORIGINS: '*'
     user: "0:0"
     volumes:
       - ./dags:/opt/airflow/dags
@@ -264,25 +281,29 @@ services:
       - .:/sources
 
 
- # airflow-cli:
- #   image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.4.1}
- #   volumes:
- #     - ./dags:/opt/airflow/dags
- #     - ./logs:/opt/airflow/logs
- #     - ./plugins:/opt/airflow/plugins
- #   user: "${AIRFLOW_UID:-50000}:0"
- #   environment:
- #     AIRFLOW__CORE__EXECUTOR: LocalExecutor
- #     AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
- #     AIRFLOW__CORE__FERNET_KEY: ''
- #     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
- #     AIRFLOW__CORE__LOAD_EXAMPLES: 'false' 
- #     CONNECTION_CHECK_MAX_COUNT: "0"
+  airflow-cli:
+    image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.4.1}
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+    user: "${AIRFLOW_UID:-50000}:0"
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+      AIRFLOW__CORE__FERNET_KEY: ''
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'false' 
+      CONNECTION_CHECK_MAX_COUNT: "0"
+      AIRFLOW__API__AUTH_BACKEND: "airflow.api.auth.backend.basic_auth"
+      AIRFLOW__API__ACCESS_CONTROL_ALLOW_HEADERS: 'origin, content-type, accept'
+      AIRFLOW__API__ACCESS_CONTROL_ALLOW_METHODS: 'POST, GET'
+      AIRFLOW__API__ACCESS_CONTROL_ALLOW_ORIGINS: '*'
     # Workaround for entrypoint issue. See: https://github.com/apache/airflow/issues/16252
-  #  command:
-  #    - bash
-  #    - -c
-  #    - airflow
+    command:
+      - bash
+      - -c
+      - airflow
 
   # You can enable flower by adding "--profile flower" option e.g. docker-compose --profile flower up
   # or by explicitly targeted on the command line e.g. docker-compose up flower.

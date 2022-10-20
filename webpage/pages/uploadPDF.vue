@@ -2,7 +2,7 @@
     <br/><br/><br/>
 
 
-      <form @submit.prevent="uploadPDF" enctype = "multipart/form-data">
+      <form @submit.prevent="preproccesPDF" enctype = "multipart/form-data">
           <div>
             <label>PDF Name</label>
             <input type="text" v-model="upload.title" class="separate_input" name = "title" />
@@ -44,6 +44,12 @@
 <script setup lang="ts">
 import { Body } from 'nuxt/dist/head/runtime/components';
 
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
+
+
 const Token = useCookie('Token')
 
   let upload = {
@@ -55,9 +61,32 @@ const Token = useCookie('Token')
         }
     let dataset = new FormData()
 
+
+
+
+    async function preproccesPDF()
+  {
+    let count_id = getRandomInt(1000)
+    let airflow = {
+        "conf": {grid:"10298","sid":1,"date_start":"2022-10-13","date_end":"2022-10-16","title": upload.title,"desc": upload.description},
+        "dag_run_id": count_id.toString()
+    }
+
+    console.log("Basic "+ btoa("airflow:airflow"))
+    let user = "Basic "+ btoa("airflow:airflow")
+    console.log(airflow)
+    const url = "http://127.0.0.1:8080/api/v1/dags/verify_pdf_v1/dagRuns"
+    const requestOptions = {
+
+    method: 'POST',
+    body: JSON.stringify(airflow)
+  }
+    const { data } = await useFetch<any>(url, requestOptions);
+    console.log(data)
+  }
+
 async function uploadPDF()
   {
-
     dataset.append("title",upload.title)
     dataset.append("description",upload.description)
     const url = "http://127.0.0.1:5000/upload"

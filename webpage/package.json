@@ -13,6 +13,7 @@
   "dependencies": {
     "@nuxtjs/auth-next": "5.0.0-1648802546.c9880dc",
     "@nuxtjs/axios": "^5.13.6",
+    "cors": "^2.8.5",
     "mdi": "^2.2.43",
     "sass": "^1.55.0",
     "vue-awesome-swiper": "^5.0.1",
