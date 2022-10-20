@@ -30,7 +30,7 @@ airflow:
     AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "True"
     AIRFLOW__CORE__LOAD_EXAMPLES: "False"
     AIRFLOW__WEBSERVER__RBAC: "False"
-    AIRFLOW__API__AUTH_BACKEND: "airflow.api.auth.backend.default"
+    AIRFLOW__API__AUTH_BACKEND: "airflow.api.auth.backend.basic_auth"
     AIRFLOW__WEBSERVER__AUTHENTICATE: "False"
     AIRFLOW__API__ACCESS_CONTROL_ALLOW_HEADERS: 'Content-Type'
     AIRFLOW__API__ACCESS_CONTROL_ALLOW_METHODS: 'POST, GET'

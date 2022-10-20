@@ -10,6 +10,8 @@ You can search PDFs using some criterias like name, category, publisher, etc. Th
 ### Commands on Terminal (Linux)
 * start a cluster with ```minikube start```
 * go to the airflow folder with ```cd airflow```
+* get the airflow repo with ```helm repo add airflow-stable https://airflow-helm.github.io/charts```
+* update the repo with ```helm repo update```
 * execute this command ```kubectl create ns airflow-cluster```
 * then run this command ```helm install airflow-cluster airflow-stable/airflow --namespace airflow-cluster --version "8.X.X" --values ./custom-values.yaml```
 * Go back to the main folder ```cd ..```
