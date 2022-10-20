@@ -5,11 +5,14 @@ from flask_cors import CORS
 from Models.database import Database
 from config import Config
 import os
+from time import sleep
 
 app = Flask(__name__)
 CORS(app)
 
 if __name__ == '__main__':
+    print("BUILDING API... WAITING FOR DATABASE")
+    sleep(30)
     DB = Database()
     app.config.from_object(Config)
     app.config["DATABASE"] = DB

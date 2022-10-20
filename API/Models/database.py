@@ -29,6 +29,12 @@ class Database:
         PASSWORD = os.environ["PASSWORD_DB"]
         PORT = os.environ["PORT_DB"]
         HOST = os.environ["HOST_DB"]
+        print("DATABASE LOGIN DATA: ")
+        print(f"DATABASE: {DATABASE}")
+        print(f"USER: {USER}")
+        print(f"PASSWORD: {PASSWORD}")
+        print(f"PORT: {PORT}")
+        print(f"HOST: {HOST}")
         return psycopg2.connect(database=DATABASE, user=USER, host=HOST, port=PORT, password=PASSWORD) 
 
     def UserExists(self, username):
