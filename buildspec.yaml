@@ -1,0 +1,33 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR ...
+      - aws --version
+      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+      - REPOSITORY_URI=050931232565.dkr.ecr.us-east-1.amazonaws.com/pdfecrrepo
+      - COMMIT_HASH=$(echo $CODEBUILD RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
+  build:
+    commands:
+      - echo Build started on 'date'
+      - echo Building the Docker image ...
+      - docker compose build
+      - docker tag proyect_startup_db $REPOSITORY_URI:proyect_startup_db
+      - docker tag proyect_startup_api $REPOSITORY_URI:proyect_startup_api
+      - docker tag nuxt_dev $REPOSITORY_URI:nuxt_dev
+      - docker tag nuxt_dev2 $REPOSITORY_URI:nuxt_dev2
+      - docker tag nginx $REPOSITORY_URI:nginx
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker images ...
+      - docker push $REPOSITORY_URI:proyect_startup_db
+      - docker push $REPOSITORY_URI:proyect_startup_api
+      - docker push $REPOSITORY_URI:nuxt_dev
+      - docker push $REPOSITORY_URI:nuxt_dev2
+      - docker push $REPOSITORY_URI:nginx
+      - echo Writing image definitions file ...
+      
+
