@@ -13,7 +13,7 @@ phases:
     commands:
       - echo Build started on 'date'
       - echo Building the Docker image ...
-      - docker compose build
+      - docker-compose build
       - docker tag proyect_startup_db $REPOSITORY_URI:proyect_startup_db
       - docker tag proyect_startup_api $REPOSITORY_URI:proyect_startup_api
       - docker tag nuxt_dev $REPOSITORY_URI:nuxt_dev
