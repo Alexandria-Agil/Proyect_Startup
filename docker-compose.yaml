@@ -35,6 +35,18 @@ services:
       app_network:
         aliases: 
           - api_host
+  fastapi:
+    build:
+      context: ./FastApi
+      dockerfile: ./Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./FastApi:/FastApi
+    networks: 
+      app_network:
+        aliases: 
+          - api_host_2
 
   nuxt:
     build:
