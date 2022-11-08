@@ -2,7 +2,7 @@
     <br/><br/><br/>
 
 
-      <form @submit.prevent="preproccesPDF" enctype = "multipart/form-data">
+      <form @submit.prevent="preproccesPDF" enctype = "multipart/form-data" class="form2">
           <div>
             <label>PDF Name</label>
             <input type="text" v-model="upload.title" class="separate_input" name = "title" />
@@ -13,13 +13,13 @@
           </div>
           <div>
             <label>Select PDF file to upload</label>
-            <v-file-input  type="file" @change="Setfile2" name = "file"
+            <v-file-input  type="file" @change="Setfile2" name = "file" class=" inputs2"
             truncate-length="15"
             ></v-file-input>
           </div>
           <div>
             <label>Upload a cover image</label>
-            <v-file-input @change="Setfile1" name = "thumbnail"
+            <v-file-input @change="Setfile1" name = "thumbnail" class=" inputs2"
             truncate-length="15"
             ></v-file-input>
           </div>
@@ -27,17 +27,7 @@
             <button type="submit">Submit</button>
           </div>
 
-    </form>
-
-
-    <form action = "http://localhost:5000/upload" method = "POST" 
-         enctype = "multipart/form-data">
-         <input type = "file" name = "file" />
-          <input type = "file" name = "thumbnail" />
-          <input type = "text" name = "title" />    
-          <input type = "text" name = "description" />
-         <input type = "submit"/>
-      </form>   
+    </form> 
 
 </template>
 
@@ -125,5 +115,12 @@ async function uploadPDF()
 <style>
 .separate_input{
   margin-left: 10px;
+}
+.inputs2{
+  width: 800px;
+}
+.form2{
+  margin-left: 50px;
+  margin-top: 10px;
 }
 </style>

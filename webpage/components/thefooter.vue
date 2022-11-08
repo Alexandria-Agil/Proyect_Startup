@@ -1,6 +1,6 @@
 <template>
-    <v-layout>
-        <v-footer>
+    <v-layout style="margin-top: 125px;">
+        <v-footer app bottom fixed padless>
             <v-card elevation="0" rounded="0" width="100%" class="bg-grey text-center">
                 <v-card-text>
                     <v-btn class="mx-4" icon="mdi-home" variant="plain"></v-btn>

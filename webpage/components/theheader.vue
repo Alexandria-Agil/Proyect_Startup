@@ -39,6 +39,7 @@
                             <v-text-field v-model="searchText" class="input" hide-details label="Search"
                                 placeholder="Search" rounded dense single-line>
                             </v-text-field>
+
                             <v-btn icon type="submit">
                                 <v-icon>mdi-magnify</v-icon>
                             </v-btn>
@@ -71,8 +72,8 @@
                     </v-btn>
                 </a>
                 
-                <a href="/usuarios/1" style="text-decoration: none; color: inherit;">
-                    <v-btn style="border: 1px solid #000;width: 300px;color: red;margin-top: 15px;" class="top_separation">
+                <a href="/" style="text-decoration: none; color: inherit;">
+                    <v-btn style="border: 1px solid #000;width: 300px;color: red;margin-top: 15px;" class="top_separation" @click="logout()">
                        Log out
                     </v-btn>
                 </a>
@@ -92,6 +93,8 @@ function drawer_active(): void {
 function searchItems(): void {
     const router = useRouter()
     router.push({ name: 'search', query: { search: searchText.value } })
+    
+    
 }
 
 
@@ -108,7 +111,9 @@ function searchItems(): void {
   refresh();
   console.log(JSON.parse(JSON.stringify(data)))
     try{
-      Loged = data.value.status
+      if(value != undefined){
+        Loged = true
+      }
     }
     catch(e){
       console.log(e)
@@ -135,6 +140,15 @@ function searchItems(): void {
     console.log(Token.value)
   }
   console.log(Loged)
+
+function logout()
+  {
+    const Token = useCookie('Token')
+    Token.value = undefined
+    console.log(Token.value)
+
+  }
+
 </script>
 
 <style>
@@ -146,4 +160,6 @@ function searchItems(): void {
 .top_separation{
     margin-top: 2px;
 }
+
+
 </style>

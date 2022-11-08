@@ -28,7 +28,7 @@ import Manga from '@/types/file';
 
 const { data } = await useFetch<any>("https://api.jikan.moe/v4/manga");
 
-
+const router = useRouter()
 const route = useRoute()
 
 const products = computed<any[]>(() => {
@@ -39,6 +39,7 @@ const products = computed<any[]>(() => {
     return TotalData.filter((product) => {
         return product.title.toUpperCase().includes(upperQuery);
     })
+    
 })
 
 definePageMeta({
