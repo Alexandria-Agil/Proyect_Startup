@@ -3,13 +3,7 @@
     <v-carousel :show-arrows="true">
       <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src" cover></v-carousel-item>
     </v-carousel>
-    <v-container fluid>
-      <v-row dense>
-        <v-col v-for="n in 8" :key="n" cols="3">
-          <v-sheet color="grey-lighten-2" height="96"></v-sheet>
-        </v-col>
-      </v-row>
-    </v-container>
+
 
     <v-sheet class="mx-auto" elevation="8" max-width="1800">
       <v-slide-group v-model="model" class="pa-4" selected-class="bg-primary" show-arrows>
