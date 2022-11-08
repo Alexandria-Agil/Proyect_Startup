@@ -18,7 +18,7 @@ CREATE TABLE alexandria.category(
     id serial PRIMARY KEY,
     title VARCHAR(50) NOT NULL
 );
-/*
+
 CREATE TABLE alexandria.files(
     id serial PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
@@ -29,12 +29,13 @@ CREATE TABLE alexandria.files(
     privacy BOOLEAN NOT NULL,
     account_id int NOT NULL,
 	category_id int,
+    available BOOLEAN NOT NULL,
     FOREIGN KEY (account_id)
       REFERENCES alexandria.users (id) ON DELETE CASCADE,
     FOREIGN KEY (category_id)
       REFERENCES alexandria.category (id) ON DELETE CASCADE
 );
-*/
+/*
 CREATE TABLE alexandria.files(
     id serial PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
@@ -47,3 +48,4 @@ CREATE TABLE alexandria.files(
     FOREIGN KEY (category_id)
       REFERENCES alexandria.category (id) ON DELETE CASCADE
 );
+*/

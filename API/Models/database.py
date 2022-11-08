@@ -71,7 +71,7 @@ class Database:
         return data
 
     '''
-     id serial PRIMARY KEY,
+    id serial PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
     filename VARCHAR(255) NOT NULL,
 	thumbnail VARCHAR(255) NOT NULL,
@@ -86,16 +86,16 @@ class Database:
         try:
             cur = self.conn.cursor()
             SQLQuery = f"""
-                        INSERT INTO alexandria.files(title, filename, thumbnail, description,
-                        cont_18, privacy, account_id, category_id) 
-                        VALUES ('{title}', '{file}', '{thumbnail}', '{description}', FALSE, FALSE,
                         SELECT u.id from alexandria.users u
-                            WHERE u.user_username = '{username}', NULL)
+                            WHERE u.user_username = '{username}'
                         """
+            cur.execute(SQLQuery)
+            uid = cur.fetchall()[0]
             SQLQuery = f"""
                         INSERT INTO alexandria.files(title, filename, thumbnail, description,
-                        cont_18, privacy, category_id) 
-                        VALUES ('{title}', '{file}', '{thumbnail}', '{description}', FALSE, FALSE, NULL)
+                        cont_18, privacy, account_id, category_id, available) 
+                        VALUES ('{title}', '{file}', '{thumbnail}', '{description}', FALSE, FALSE,
+                        '{uid}', NULL, FALSE)
                         """
             cur.execute(SQLQuery)
             cur.close()
