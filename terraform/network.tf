@@ -18,6 +18,19 @@ resource "aws_subnet" "public-subnet" {
     Name = "lb_Public_Subnet"
   }
 }
+
+
+resource "aws_subnet" "public-subnet2" {
+  vpc_id = aws_vpc.pdfvpc.id
+  cidr_block = var.public_subnet_cidr2
+  availability_zone = "${var.aws_region}b"
+
+  tags = {
+    Name = "lb_Public_Subnet2"
+  }
+}
+
+
 ## Define the internet gateway
 resource "aws_internet_gateway" "lbgw" {
   vpc_id = aws_vpc.pdfvpc.id
@@ -45,3 +58,20 @@ resource "aws_route_table_association" "public-rt" {
   subnet_id = aws_subnet.public-subnet.id
   route_table_id = aws_route_table.public-rt.id
 }
+
+
+resource "aws_route_table_association" "public-rt2" {
+  subnet_id = aws_subnet.public-subnet2.id
+  route_table_id = aws_route_table.public-rt.id
+}
+
+
+/*
+data "aws_vpc" "default"{
+    default = true
+}
+
+data "aws_subnet_ids" "subnet" {
+    vpc_id = data. aws_vpc.default.id
+}
+*/
