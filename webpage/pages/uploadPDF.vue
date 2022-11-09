@@ -32,11 +32,9 @@
 </template>
 
 <script setup lang="ts">
-import { Body } from 'nuxt/dist/head/runtime/components';
 
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
-}
+
+
 
 
 
@@ -52,8 +50,12 @@ const Token = useCookie('Token')
     let dataset = new FormData()
 
 
-
       /* 
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
     async function preproccesPDF()
   {
     let count_id = getRandomInt(1000)

@@ -60,13 +60,13 @@
                     </v-btn>
                 </a>
 
-                <a href="/usuarios/1" style="text-decoration: none; color: inherit;">
+                <a href="/friends" style="text-decoration: none; color: inherit;">
                     <v-btn style="border: 1px solid #000;width: 300px;" class="top_separation" >
                         See Friends
                     </v-btn>
                 </a>
 
-                <a href="/usuarios/1" style="text-decoration: none; color: inherit;">
+                <a href="/privatepdf" style="text-decoration: none; color: inherit;">
                     <v-btn style="border: 1px solid #000;width: 300px;" class="top_separation">
                         Private PDF
                     </v-btn>

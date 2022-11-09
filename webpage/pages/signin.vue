@@ -54,7 +54,7 @@ async function usersignin()
   console.log(data.value)
 
   router.push({ path: "/" });
-  router.go(-1)
+
   
 }
 

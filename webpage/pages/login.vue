@@ -84,7 +84,6 @@
     console.log(Token.value)
     if(Token.value != undefined){
       router.push({ path: "/" });
-      router.go(-1)
     }
   }
   
