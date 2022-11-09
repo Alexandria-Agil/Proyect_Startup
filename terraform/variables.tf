@@ -24,11 +24,11 @@ variable "vpc_cidr" {
 }
 
 variable "public_subnet_cidr" {
-  default = "10.0.2.0/24"
+  default = "10.0.0.0/24"
 }
 
 variable "public_subnet_cidr2" {
-  default = "10.0.3.0/24"
+  default = "10.0.1.0/24"
 }
 
 variable "ami_dock" {
@@ -52,6 +52,10 @@ output "nginx_dns_name" {
 
 output "Worker-node1_Private_IP" {
   value = aws_instance.server1.private_ip
+}
+
+output "Worker-node1_Public_IP" {
+  value = aws_instance.server1.public_ip
 }
 
 output "elb-dns-name" {

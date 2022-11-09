@@ -8,4 +8,4 @@ id ec2-user
 newgrp docker
 sudo systemctl enable docker.service
 sudo systemctl start docker.service
-docker run -dit -p 8000:8000 rafaruizc/proyect_startup_fastapi
+docker run -dit -p 80:8000 rafaruizc/proyect_startup_fastapi
