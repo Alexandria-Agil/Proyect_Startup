@@ -24,10 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import Manga from '@/types/file';
-
 const { data } = await useFetch<any>("https://api.jikan.moe/v4/manga");
-
 const router = useRouter()
 const route = useRoute()
 
