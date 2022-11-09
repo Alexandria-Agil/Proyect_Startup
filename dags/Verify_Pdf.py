@@ -2,6 +2,7 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.utils.dates import days_ago
 from datetime import datetime, timedelta
+import requests
 
 TITLE_MAX_CHAR = 100
 DESC_MAX_CHAR = 500
@@ -21,6 +22,14 @@ def pdf_filter_description(ti, **context):
         desc = ""
     if len(desc) > DESC_MAX_CHAR:
         raise ValueError(f"The title is too large, has {len(desc)} chars (MAX: {DESC_MAX_CHAR})")
+    return 0
+
+def validation_complete(ti, **context):
+    print(context)
+    print(context['dag_run'].run_id)
+    
+    requests.post("http://host.docker.internal:8000/status/", json= {"status": str(context['dag_run'].run_id)} )
+
     return 0
 
 args = {
@@ -49,4 +58,9 @@ with DAG(
         task_id="pdf_filter_description",
         python_callable = pdf_filter_description
     )
-    task1 >> task2
+    task3 = PythonOperator(
+        task_id="validaton_complete",
+        python_callable = validation_complete
+    )
+    task1 >> task2 
+    task2 >> task3

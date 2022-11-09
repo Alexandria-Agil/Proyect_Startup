@@ -2,8 +2,13 @@ from flask import current_app, jsonify, request, Blueprint, abort
 import Utils.protocols as protocols
 import Utils.webProtocols as webProtocols
 from functools import wraps
+import requests
 
 endpoints = Blueprint('endpoints', __name__)
+
+
+
+
 
 def token_required(f):
     @wraps(f)
@@ -89,7 +94,16 @@ def upload_file(username): #username
             filename = webProtocols.save_file(file)
  
             #status = DB.InsertFile(title, description, file, thumbpath, username)
-            status = DB.InsertFile(title, description, filename, thumbpath)
+            id = DB.InsertFile(title, description, filename, thumbpath,username)
+            status = False
+            if (id is not None):
+                status = True
+            print(id, id is not None)
+            #llamada fast api
+            requests.post("http://host.docker.internal:8000/Dag/", json= {"dag_run_id": str(id), "conf": {"title" : title, "desc": description } })
+        
+
+
 
             return jsonify({"status":status}), 200
         else:
@@ -99,5 +113,21 @@ def upload_file(username): #username
 
 @endpoints.route('/files', methods=['GET'])
 def get_files():
+    DB = current_app.config["DATABASE"]
+    status = DB.Getfiles()
+    return jsonify({'status': status}), 200
 
-    return jsonify({'status': True}), 200
+
+
+@endpoints.route('/validation', methods=['Post'])
+def get_validated():
+    body, status = webProtocols.RequestBody(request.json, ["id"])
+    if not status:
+        return jsonify({'status': False}), 400 #BAD REQUEST null values or werent passed
+    id = body[0]
+    print(id)
+    
+    DB = current_app.config["DATABASE"]
+    status = DB.validation(id)
+    print(status)
+    return jsonify({'status': status}), 200

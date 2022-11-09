@@ -70,6 +70,18 @@ class Database:
         cur.close()
         return data
 
+    def Getfiles(self):
+        cur = self.conn.cursor()
+        SQLQuery = f"""
+                    SELECT *
+                    FROM alexandria.files 
+                    WHERE available = TRUE;
+                    """
+        cur.execute(SQLQuery)
+        data = cur.fetchall()
+        cur.close()
+        return data
+
     '''
     id serial PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
@@ -83,19 +95,34 @@ class Database:
     '''
 
     def InsertFile(self, title, description, file, thumbnail, username="test"):
+        cur = self.conn.cursor()
+        SQLQuery = f"""
+                    SELECT u.id from alexandria.users u
+                        WHERE u.user_username = '{username}'
+                    """
+        cur.execute(SQLQuery)
+        uid = cur.fetchone()[0]
+        print(uid, "uid")
+        SQLQuery = f"""
+                    INSERT INTO alexandria.files(title, filename, thumbnail, description,
+                    cont_18, privacy, account_id, category_id, available) 
+                    VALUES ('{title}', '{file}', '{thumbnail}', '{description}', FALSE, FALSE,
+                    '{uid}', NULL, FALSE) RETURNING id;
+                    """
+        cur.execute(SQLQuery)
+        id = cur.fetchone()[0]
+        cur.close()
+        print(id)
+
+        return id
+
+    def validation(self, id):
         try:
             cur = self.conn.cursor()
             SQLQuery = f"""
-                        SELECT u.id from alexandria.users u
-                            WHERE u.user_username = '{username}'
-                        """
-            cur.execute(SQLQuery)
-            uid = cur.fetchall()[0]
-            SQLQuery = f"""
-                        INSERT INTO alexandria.files(title, filename, thumbnail, description,
-                        cont_18, privacy, account_id, category_id, available) 
-                        VALUES ('{title}', '{file}', '{thumbnail}', '{description}', FALSE, FALSE,
-                        '{uid}', NULL, FALSE)
+                        UPDATE alexandria.files f
+                        SET available = TRUE
+                            WHERE f.id = '{id}'
                         """
             cur.execute(SQLQuery)
             cur.close()
@@ -108,3 +135,5 @@ class Database:
 
     def hash_password(self, password):
         return pwd_context.encrypt(password)
+
+    

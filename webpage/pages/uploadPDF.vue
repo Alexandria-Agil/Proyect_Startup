@@ -2,7 +2,7 @@
     <br/><br/><br/>
 
 
-      <form @submit.prevent="preproccesPDF" enctype = "multipart/form-data" class="form2">
+      <form @submit.prevent="uploadPDF" enctype = "multipart/form-data" class="form2">
           <div>
             <label>PDF Name</label>
             <input type="text" v-model="upload.title" class="separate_input" name = "title" />
@@ -53,7 +53,7 @@ const Token = useCookie('Token')
 
 
 
-
+      /* 
     async function preproccesPDF()
   {
     let count_id = getRandomInt(1000)
@@ -73,7 +73,7 @@ const Token = useCookie('Token')
   }
     const { data } = await useFetch<any>(url, requestOptions);
     console.log(data)
-  }
+  }*/
 
 async function uploadPDF()
   {

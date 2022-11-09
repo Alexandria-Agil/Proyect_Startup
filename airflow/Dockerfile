@@ -4,5 +4,6 @@ FROM apache/airflow:2.2.5-python3.8
 USER root
 
 COPY ./dags /opt/airflow/dags
+RUN pip install -r requirements.txt
 
 USER admin
