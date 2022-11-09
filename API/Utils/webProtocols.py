@@ -62,6 +62,8 @@ def get_response_image(filename):
 def get_response_pdf(filename):
     path = f"{current_app.config['UPLOAD_FOLDER']}"
     image_path = os.path.join(path, filename)
-    with open(f"{image_path}", "rb") as pdf_file:
-        encoded_string = b64encode(pdf_file.read())
-        return encoded_string
+
+    #with open(f"{image_path}", "rb") as pdf_file:
+    #    encoded_string = b64encode(pdf_file.read())
+    #return encoded_string
+    return image_path

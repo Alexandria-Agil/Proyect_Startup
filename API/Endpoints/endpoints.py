@@ -1,4 +1,4 @@
-from flask import current_app, jsonify, request, Blueprint, abort
+from flask import current_app, jsonify, request, Blueprint, abort, send_from_directory
 import Utils.protocols as protocols
 import Utils.webProtocols as webProtocols
 from functools import wraps
@@ -125,23 +125,30 @@ def get_files(username):
         output.append(temp)
     return jsonify({'status': output}), 200
 
-@endpoints.route('/file', methods=['GET'])
+@endpoints.route('/file/<path:id>', methods=['GET'])
 @token_required
-def get_file(username):
-    body, status = webProtocols.RequestBody(request.json, ["id"])
-    if not status:
+def get_file(username,id):
+    if not id:
         return jsonify({'status': False}), 400 #BAD REQUEST null values or werent passed
-
-    id = body[0]
 
     DB = current_app.config["DATABASE"]
     file = DB.Getfile(username,id)
-    output = {
-            "file": webProtocols.get_response_pdf(file[0]),
-            "name": file[1]
-        }
-    return jsonify({'status': output}), 200
+    print(file)
 
+    return send_from_directory(current_app.config['UPLOAD_FOLDER'],file[0], as_attachment = False)
+
+
+
+@endpoints.route('/file2/<path:id>', methods=['GET'])
+def get_file2(id):
+    if not id:
+        return jsonify({'status': False}), 400 #BAD REQUEST null values or werent passed
+
+    DB = current_app.config["DATABASE"]
+    file = DB.Getfile("dark",id)
+    print(file)
+
+    return send_from_directory(current_app.config['UPLOAD_FOLDER'],file[0], as_attachment = False)
 
 @endpoints.route('/validation', methods=['Post'])
 def get_validated():

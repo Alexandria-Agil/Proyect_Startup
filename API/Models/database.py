@@ -88,10 +88,11 @@ class Database:
         SQLQuery = f"""
                     SELECT f.filename, f.title
                     FROM alexandria.files f
-                    WHERE f.account_id = '{id}' AND f.available = TRUE AND u.user_username = '{username}';
+                    INNER JOIN alexandria.users u
+                    ON f.account_id = '{id}' AND f.available = TRUE AND u.user_username = '{username}';
                     """
         cur.execute(SQLQuery)
-        data = cur.fetchone()[0]
+        data = cur.fetchone()
         cur.close()
         return data
 

@@ -128,15 +128,13 @@ function searchItems(): void {
     const { data } = await useFetch<JSON>(url, requestOptions);
     const Token = useCookie('Token')
     Token.value = data.value.token.toString()
-    console.log(Token.value)
+
   }
-  console.log(Loged)
 
 function logout()
   {
     const Token = useCookie('Token')
     Token.value = undefined
-    console.log(Token.value)
 
   }
 

@@ -7,18 +7,18 @@
 
                     <td style="width: 300px;">
                         <v-card color="transparent" height="200" width="300">
-                            <a :href="`pdf/${item.name}`" style="text-decoration: none; color: inherit;">
+                            <a :href="`pdf/${item.id}`" style="text-decoration: none; color: inherit;">
                             <img v-bind:src="'data:image/jpeg;base64,'+item.image" class="d-flex fill-height align-center justify-center" />
                         </a>
                         </v-card>
                     </td>
                     <td style="margin-bottom: 100px; padding-left: 50px;">
-                        <a :href="`pdf/${item.name}`" style="text-decoration: none; color: inherit;">
+                        <a :href="`pdf/${item.id}`" style="text-decoration: none; color: inherit;">
                             {{ item.name }}
                         </a>
                     </td>
                     <td style="margin-bottom: 100px; padding-left: 50px;">
-                        <a :href="`pdf/${item.name}`" style="text-decoration: none; color: inherit;">
+                        <a :href="`pdf/${item.id}`" style="text-decoration: none; color: inherit;">
                             {{ item.descr }}
                         </a>
                     </td>
