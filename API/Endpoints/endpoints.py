@@ -119,11 +119,28 @@ def get_files(username):
         temp = {
             "name": file[0],
             "descr": file[1],
-            "image": webProtocols.get_response_image(file[2])
+            "image": webProtocols.get_response_image(file[2]),
+            "id": file[3]
         }
         output.append(temp)
     return jsonify({'status': output}), 200
 
+@endpoints.route('/file', methods=['GET'])
+@token_required
+def get_file(username):
+    body, status = webProtocols.RequestBody(request.json, ["id"])
+    if not status:
+        return jsonify({'status': False}), 400 #BAD REQUEST null values or werent passed
+
+    id = body[0]
+
+    DB = current_app.config["DATABASE"]
+    file = DB.Getfile(username,id)
+    output = {
+            "file": webProtocols.get_response_pdf(file[0]),
+            "name": file[1]
+        }
+    return jsonify({'status': output}), 200
 
 
 @endpoints.route('/validation', methods=['Post'])

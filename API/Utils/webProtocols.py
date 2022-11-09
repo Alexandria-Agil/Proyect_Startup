@@ -1,6 +1,6 @@
 import os
 import jwt
-from base64 import encodebytes
+from base64 import encodebytes, b64encode
 import io
 import uuid
 from flask import current_app
@@ -58,3 +58,10 @@ def get_response_image(filename):
     pil_img.save(byte_arr, format='PNG') # convert the PIL image to byte array
     encoded_img = encodebytes(byte_arr.getvalue()).decode('ascii') # encode as base64
     return encoded_img
+
+def get_response_pdf(filename):
+    path = f"{current_app.config['UPLOAD_FOLDER']}"
+    image_path = os.path.join(path, filename)
+    with open(f"{image_path}", "rb") as pdf_file:
+        encoded_string = b64encode(pdf_file.read())
+        return encoded_string

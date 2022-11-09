@@ -73,13 +73,25 @@ class Database:
     def Getfiles(self, username):
         cur = self.conn.cursor()
         SQLQuery = f"""
-                    SELECT f.title, f.description, f.thumbnail
+                    SELECT f.title, f.description, f.thumbnail, f.id
                     FROM alexandria.files f
                     INNER JOIN alexandria.users u
                     ON f.account_id = u.id AND f.available = TRUE AND u.user_username = '{username}';
                     """
         cur.execute(SQLQuery)
         data = cur.fetchall()
+        cur.close()
+        return data
+
+    def Getfile(self, username, id):
+        cur = self.conn.cursor()
+        SQLQuery = f"""
+                    SELECT f.filename, f.title
+                    FROM alexandria.files f
+                    WHERE f.account_id = '{id}' AND f.available = TRUE AND u.user_username = '{username}';
+                    """
+        cur.execute(SQLQuery)
+        data = cur.fetchone()[0]
         cur.close()
         return data
 
