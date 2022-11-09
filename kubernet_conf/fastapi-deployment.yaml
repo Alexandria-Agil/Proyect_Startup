@@ -26,7 +26,7 @@ spec:
         io.kompose.service: fastapi
     spec:
       containers:
-        - image: fastapi
+        - image: rafaruizc/proyect_startup_fastapi
           name: fastapi
           ports:
             - containerPort: 8000
