@@ -68,6 +68,12 @@
           username: '',
           password: ''
         }
+
+
+definePageMeta({
+    key: route => route.fullPath
+})
+
   async function userLogin()
   {
     const url = "http://127.0.0.1:5000/login"
@@ -83,6 +89,7 @@
     Token.value = data.value.token.toString()
     console.log(Token.value)
     if(Token.value != undefined){
+
       router.push({ path: "/" });
     }
   }

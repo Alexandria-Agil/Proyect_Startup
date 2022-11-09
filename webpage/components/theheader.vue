@@ -101,23 +101,14 @@ function searchItems(): void {
   let Loged = false
   const Token = useCookie('Token')
   const value = Token.value
-  const url = "http://127.0.0.1:5000/users"
-    const requestOptions = {
-    method: 'GET',
-    headers: {"Authorization":value}
-  }
-  const { data, error, refresh, pending } = await useFetch<JSON>(url, requestOptions);
-  console.log(data)
-  refresh();
-  console.log(JSON.parse(JSON.stringify(data)))
+
     try{
       if(value != undefined){
         Loged = true
       }
     }
     catch(e){
-      console.log(e)
-      console.log(data)
+
     }
    
   

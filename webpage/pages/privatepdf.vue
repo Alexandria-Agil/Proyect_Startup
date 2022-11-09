@@ -1,44 +1,51 @@
 <template>
     <br><br><br>
     <h2>Your Uploads</h2>
-    <v-table>
-        <tr v-for="item in products" :key="item.mal_id">
+    <div v-if="largo != 0">
+        <v-table>
+            <tr v-for="item in datos" :key="item.name">
 
-                <td>
-                    <v-card color="transparent" height="200" width="300">
-                        <a :href="`pdf/${item.mal_id}`" style="text-decoration: none; color: inherit;">
-                        <v-img class="d-flex fill-height align-center justify-center" :src="item.images.jpg.image_url">
-                        </v-img>
-                    </a>
-                    </v-card>
-                </td>
-                <td style="margin-bottom: 100px;">
-                    <a :href="`pdf/${item.mal_id}`" style="text-decoration: none; color: inherit;">
-                        {{ item.title }}
-                    </a>
-                </td>
+                    <td style="width: 300px;">
+                        <v-card color="transparent" height="200" width="300">
+                            <a :href="`pdf/${item.name}`" style="text-decoration: none; color: inherit;">
+                            <img v-bind:src="'data:image/jpeg;base64,'+item.image" class="d-flex fill-height align-center justify-center" />
+                        </a>
+                        </v-card>
+                    </td>
+                    <td style="margin-bottom: 100px; padding-left: 50px;">
+                        <a :href="`pdf/${item.name}`" style="text-decoration: none; color: inherit;">
+                            {{ item.name }}
+                        </a>
+                    </td>
+                    <td style="margin-bottom: 100px; padding-left: 50px;">
+                        <a :href="`pdf/${item.name}`" style="text-decoration: none; color: inherit;">
+                            {{ item.descr }}
+                        </a>
+                    </td>
 
-    
-        </tr>
-    </v-table>
+            </tr>
+        </v-table>
+    </div>
+    <div v-else>
+        <h2>No tienes PDF subidos</h2>
+    </div>
 </template>
 
 
 <script setup lang="ts">
-const { data } = await useFetch<any>("https://api.jikan.moe/v4/manga");
-const router = useRouter()
-const route = useRoute()
 
-const products = computed<any[]>(() => {
-    const TotalData = data.value.data
-    const searchQuery = route.query.search as string;
-    if (!searchQuery) return TotalData;
-    const upperQuery = searchQuery.toUpperCase();
-    return TotalData.filter((product) => {
-        return product.title.toUpperCase().includes(upperQuery);
-    })
-    
-})
+const Token = useCookie('Token')
+const url = "http://127.0.0.1:5000/files"
+const requestOptions = {
+method: 'GET',
+headers: {"Authorization":Token.value},
+}
+const { data } = await useFetch<any>(url, requestOptions);
+console.log(data.value)
+let largo = data.value.status.length
+let datos = data.value.status
+
+
 
 definePageMeta({
     key: route => route.fullPath
