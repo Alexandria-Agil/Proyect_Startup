@@ -70,12 +70,13 @@ class Database:
         cur.close()
         return data
 
-    def Getfiles(self):
+    def Getfiles(self, username):
         cur = self.conn.cursor()
         SQLQuery = f"""
-                    SELECT *
-                    FROM alexandria.files 
-                    WHERE available = TRUE;
+                    SELECT f.title, f.description, f.thumbnail
+                    FROM alexandria.files f
+                    INNER JOIN alexandria.users u
+                    ON f.account_id = u.id AND f.available = TRUE AND u.user_username = '{username}';
                     """
         cur.execute(SQLQuery)
         data = cur.fetchall()
@@ -102,7 +103,6 @@ class Database:
                     """
         cur.execute(SQLQuery)
         uid = cur.fetchone()[0]
-        print(uid, "uid")
         SQLQuery = f"""
                     INSERT INTO alexandria.files(title, filename, thumbnail, description,
                     cont_18, privacy, account_id, category_id, available) 
@@ -112,7 +112,6 @@ class Database:
         cur.execute(SQLQuery)
         id = cur.fetchone()[0]
         cur.close()
-        print(id)
 
         return id
 

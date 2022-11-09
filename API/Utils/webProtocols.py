@@ -1,5 +1,7 @@
 import os
 import jwt
+from base64 import encodebytes
+import io
 import uuid
 from flask import current_app
 from PIL import Image
@@ -47,3 +49,12 @@ def create_thumbnail(file):
     out = im.resize((500, 500))
     out.save(imgPath)
     return filename
+
+def get_response_image(filename):
+    path = f"{current_app.config['UPLOAD_FOLDER']}/img"
+    image_path = os.path.join(path, filename)
+    pil_img = Image.open(image_path, mode='r') # reads the PIL image
+    byte_arr = io.BytesIO()
+    pil_img.save(byte_arr, format='PNG') # convert the PIL image to byte array
+    encoded_img = encodebytes(byte_arr.getvalue()).decode('ascii') # encode as base64
+    return encoded_img

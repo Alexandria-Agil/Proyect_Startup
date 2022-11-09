@@ -110,10 +110,19 @@ def upload_file(username): #username
         return abort(405)
 
 @endpoints.route('/files', methods=['GET'])
-def get_files():
+@token_required
+def get_files(username):
     DB = current_app.config["DATABASE"]
-    status = DB.Getfiles()
-    return jsonify({'status': status}), 200
+    files = DB.Getfiles(username)
+    output = []
+    for file in files:
+        temp = {
+            "name": file[0],
+            "descr": file[1],
+            "image": webProtocols.get_response_image(file[2])
+        }
+        output.append(temp)
+    return jsonify({'status': output}), 200
 
 
 
