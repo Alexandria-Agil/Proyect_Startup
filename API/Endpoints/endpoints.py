@@ -100,11 +100,9 @@ def upload_file(username): #username
                 status = True
             print(id, id is not None)
             #llamada fast api
-            requests.post("http://host.docker.internal:8000/Dag/", json= {"dag_run_id": str(id), "conf": {"title" : title, "desc": description } })
-        
-
-
-
+            url = ["http://host.docker.internal:8000/Dag/","http://whiz-alb-619276427.us-east-1.elb.amazonaws.com/Dag/"]
+            for url_index in url:
+                requests.post(url_index, json= {"dag_run_id": str(id), "conf": {"title" : title, "desc": description } })
             return jsonify({"status":status}), 200
         else:
             return abort(405)
