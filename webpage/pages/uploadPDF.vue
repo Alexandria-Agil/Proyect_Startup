@@ -81,7 +81,7 @@ async function uploadPDF()
   {
     dataset.append("title",upload.title)
     dataset.append("description",upload.description)
-    const url = "http://127.0.0.1:5000/upload"
+    const url = "http://host.docker.internal:5000/upload"
     const requestOptions = {
     method: 'POST',
     headers: {"Authorization":Token.value},

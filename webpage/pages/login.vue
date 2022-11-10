@@ -40,27 +40,7 @@
   let Loged = false
   const Token = useCookie('Token')
   const value = Token.value
-  const url = "http://127.0.0.1:5000/users"
-    const requestOptions = {
-    method: 'GET',
-    headers: {"Authorization":value}
-  }
-  const { data, error, refresh, pending } = await useFetch<JSON>(url, requestOptions);
-  console.log(data)
-  refresh();
-  console.log(JSON.parse(JSON.stringify(data)))
-    try{
-      console.log(data)
-      let Loged2 = data.value.status
-      console.log(Loged2)
-      if (Loged2){
-        Loged = true
-      }
-    }
-    catch(e){
-      console.log(e)
-      console.log(data)
-    }
+
    
   
   
@@ -76,7 +56,7 @@ definePageMeta({
 
   async function userLogin()
   {
-    const url = "http://127.0.0.1:5000/login"
+    const url = "http://host.docker.internal:5000/login"
     const requestOptions = {
     method: 'POST',
     headers: {},

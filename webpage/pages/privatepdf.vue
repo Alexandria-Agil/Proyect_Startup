@@ -35,7 +35,7 @@
 <script setup lang="ts">
 
 const Token = useCookie('Token')
-const url = "http://127.0.0.1:5000/files"
+const url = "http://host.docker.internal:5000/files"
 const requestOptions = {
 method: 'GET',
 headers: {"Authorization":Token.value},
