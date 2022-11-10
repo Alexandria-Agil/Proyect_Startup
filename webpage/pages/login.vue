@@ -56,7 +56,7 @@ definePageMeta({
 
   async function userLogin()
   {
-    const url = "http://host.docker.internal:5000/login"
+    const url = "http://localhost:5000/login"
     const requestOptions = {
     method: 'POST',
     headers: {},

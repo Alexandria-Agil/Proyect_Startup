@@ -41,7 +41,7 @@ const login = {
       }
 async function usersignin()
 {
-  const url = "http://127.0.0.1:5000/register"
+  const url = "http://localhost:5000/register"
   const requestOptions = {
   method: 'POST',
   headers: {},

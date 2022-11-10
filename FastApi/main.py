@@ -38,5 +38,5 @@ async def create_item(data: Dag):
 
 @app.post("/status/")
 async def create_item(complete: Status):
-    requests.post("http://host.docker.internal:5000/validation", json={"id": complete.status})
+    requests.post("http://localhost:5000/validation", json={"id": complete.status})
     return 
