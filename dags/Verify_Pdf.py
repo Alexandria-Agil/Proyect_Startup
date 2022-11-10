@@ -28,7 +28,7 @@ def validation_complete(ti, **context):
     print(context)
     print(context['dag_run'].run_id)
     
-    requests.post("http://host.docker.internal:8000/status/", json= {"status": str(context['dag_run'].run_id)} )
+    requests.post("http://localhost:8000/status/", json= {"status": str(context['dag_run'].run_id)} )
 
     return 0
 

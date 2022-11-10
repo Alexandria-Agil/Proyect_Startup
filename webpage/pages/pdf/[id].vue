@@ -21,7 +21,7 @@ const route = useRoute();
 const id = route.params.id
 console.log(id)
 const Token = useCookie('Token')
-const url = "http://host.docker.internal:5000/file2/"+ 1
+const url = "http://localhost:5000/file2/"+ 1
 const requestOptions = {
 method: 'GET',
 headers: {"Authorization":Token.value},
